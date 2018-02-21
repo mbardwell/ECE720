@@ -1,12 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 int main(void)
 {
-  int int_value;
   float float_value;
-  char str_value[10];
-  printf("Enter an integer value: ");
-  gets(str_value);
-  int_value = atoi(str_value);
-  printf("value: %i\n", int_value);
+  char usrin[10];
+  printf("Choose Groceries, Entertainment or 'Other' Category: ");
+  scanf("%s", usrin);
+  if (!strcmp(usrin, "Groceries")) {
+    printf("%s\n", "Groceries");
+  }
+  else if (!strcmp(usrin,"Entertainment")) { // Compare inputs in integer domain
+    printf("%s\n", "Entertainment");
+  }
+  else if (!strcmp(usrin, "Other")){
+    printf("%s\n", "Other");
+  }
+  else {
+    printf("%s\n", "Bad Input");
+  }
+exit(1);
 }
+
+// if groceries -> fruits/vegetables, others back to main menu
