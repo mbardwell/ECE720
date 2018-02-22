@@ -36,25 +36,25 @@ int main(void)
   printf("Hey %s! Choose GROCERIES, ENTERTAINMENT or EXIT if done: ", name);
   scanf("%s", usrin);
   while ((strcmp(usrin,"GROCERIES")) & (strcmp(usrin,"ENTERTAINMENT"))) {
-    printf("Try again. Please enter GROCERIES, ENTERTAINMENT or EXIT if done: ");
+    printf("Try again %s. Please enter GROCERIES, ENTERTAINMENT or EXIT if done: ", name);
     scanf("%s", usrin);
   }
   while (1) {
     if (!strcmp(usrin, "GROCERIES")) {
       groc_flag = 1;
-      printf("GROCERIES selected\n");
+      printf("GROCERIES selected %s\n", name);
       while(1) {
         printf("%s, please select FRUITS/VEGETABLES, OTHERS or back to main menu for item entry:", name);
         fflush(stdin); gets(usrin);
         if (!strcmp(usrin, "FRUITS/VEGETABLES")) {
-          printf("Enter amount spent on FRUITS/VEGETABLES this week: ");
+          printf("%s, enter amount spent on FRUITS/VEGETABLES this week: ", name);
           scanf("%d", &fruit_cost);
           if (!value_check(fruit_cost)) {
           fruit_flag = 1;
           }
         }
         else if (!strcmp(usrin, "OTHERS")) {
-          printf("Enter amount spent on other groceries this week: ");
+          printf("%s, enter amount spent on other groceries this week: ", name);
           scanf("%d", &groc_other_cost);
           if (!value_check(groc_other_cost)) {
           groc_other_flag = 1;
@@ -65,23 +65,23 @@ int main(void)
             break;
           }
           else {
-            printf("You have not entered at least one value for each section\n");
+            printf("%s, you have not entered at least one value for each section\n", name);
           }
         }
         else {
-          printf("Not all subcategories filled out\n");
+          printf("%s, not all subcategories filled out\n", name);
         }
       }
-      printf("Thanks for adding your weekly grocery costs. Back to main menu\n");
+      printf("%s, thanks for adding your weekly grocery costs. Back to main menu\n", name);
     }
     else if (!strcmp(usrin,"ENTERTAINMENT")) { // Compare inputs in integer domain
       etmt_flag = 1;
-      printf("ENTERTAINMENT selected\n");
+      printf("%s, ENTERTAINMENT selected\n", name);
       while (1) {
         printf("%s, please select ENTERTAINMENT COST or back to main menu for item entry:", name);
         fflush(stdin); gets(usrin);
         if (!strcmp(usrin, "ENTERTAINMENT COST")) {
-          printf("Enter amount spent on entertainment cost this week: ");
+          printf("%s, enter amount spent on entertainment cost this week: ", name);
           scanf("%d", &etmt_cost);
           if (!value_check(etmt_cost)) {
           etmt_cost_flag = 1;
@@ -92,22 +92,22 @@ int main(void)
             break;
           }
           else {
-            printf("You have not entered at least one value for ENTERTAINMENT\n");
+            printf("%s, you have not entered at least one value for ENTERTAINMENT\n", name);
           }
         }
         else {
-          printf("Not all subcategories filled out\n");
+          printf("%s, not all subcategories filled out\n", name);
         }
       }
-    printf("Thanks for adding your weekly entertainment costs. Back to main menu\n");
+    printf("%s, thanks for adding your weekly entertainment costs. Back to main menu\n", name);
     }
     else if (!strcmp(usrin,"EXIT")) {
       if (groc_flag & etmt_flag) {
-        printf("\n\nFRUIT/VEGETABLES cost: %d\nOTHERS cost: %d\nENTERTAINMENT cost: %d\n", fruit_cost, groc_other_cost, etmt_cost);
+        printf("\n\n%s\nFRUIT/VEGETABLES cost: %d\nOTHERS cost: %d\nENTERTAINMENT cost: %d\n", name, fruit_cost, groc_other_cost, etmt_cost);
         exit(1);
       }
       else {
-        printf("Need to fill out weekly GROCERIES/ENTERTAINMENT cost before exiting\n");
+        printf("%s, need to fill out weekly GROCERIES/ENTERTAINMENT cost before exiting\n", name);
         printf("Hey %s! Choose GROCERIES, ENTERTAINMENT or EXIT if done: ", name);
         scanf("%s", usrin);
       }
