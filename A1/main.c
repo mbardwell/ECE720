@@ -8,7 +8,7 @@
 #include <ctype.h>
 
 // Declaration statements
-#define MAX_INPUT_LENGTH 10 // Max number of bytes (incl. null value)
+#define MAX_INPUT_LENGTH 40 // Max number of bytes (incl. null value)
 char name[MAX_INPUT_LENGTH];
 char usrin[MAX_INPUT_LENGTH];
 int fruit_cost; // int is a C keyword. int_value is an identifier
@@ -45,7 +45,7 @@ int main(void)
       printf("GROCERIES selected\n");
       while(1) {
         printf("%s, please select FRUITS/VEGETABLES, OTHERS or back to main menu for item entry:", name);
-        gets(usrin);
+        fflush(stdin); gets(usrin);
         if (!strcmp(usrin, "FRUITS/VEGETABLES")) {
           printf("Enter amount spent on FRUITS/VEGETABLES this week: ");
           scanf("%d", &fruit_cost);
@@ -78,32 +78,32 @@ int main(void)
       etmt_flag = 1;
       printf("ENTERTAINMENT selected\n");
       while (1) {
-      printf("%s, please select ENTERTAINMENT COST or back to main menu for item entry:", name);
-      gets(usrin);
-      if (!strcmp(usrin, "ENTERTAINMENT COST")) {
-        printf("Enter amount spent on entertainment cost this week: ");
-        scanf("%d", &etmt_cost);
-        if (!value_check(etmt_cost)) {
-        etmt_cost_flag = 1;
+        printf("%s, please select ENTERTAINMENT COST or back to main menu for item entry:", name);
+        fflush(stdin); gets(usrin);
+        if (!strcmp(usrin, "ENTERTAINMENT COST")) {
+          printf("Enter amount spent on entertainment cost this week: ");
+          scanf("%d", &etmt_cost);
+          if (!value_check(etmt_cost)) {
+          etmt_cost_flag = 1;
+          }
         }
-      }
-      else if (!strcmp(usrin, "back to main menu")) {
-        if (etmt_cost_flag) {
-          break;
+        else if (!strcmp(usrin, "back to main menu")) {
+          if (etmt_cost_flag) {
+            break;
+          }
+          else {
+            printf("You have not entered at least one value for ENTERTAINMENT\n");
+          }
         }
         else {
-          printf("You have not entered at least one value for ENTERTAINMENT\n");
+          printf("Not all subcategories filled out\n");
         }
       }
-      else {
-        printf("Not all subcategories filled out\n");
-      }
-    }
     printf("Thanks for adding your weekly entertainment costs. Back to main menu\n");
     }
     else if (!strcmp(usrin,"EXIT")) {
       if (groc_flag & etmt_flag) {
-        printf("\n\nFRUIT/VEGETABLES cost %d\nOTHERS cost %d\nENTERTAINMENT cost %d\n", fruit_cost, groc_other_cost, etmt_cost);
+        printf("\n\nFRUIT/VEGETABLES cost: %d\nOTHERS cost: %d\nENTERTAINMENT cost: %d\n", fruit_cost, groc_other_cost, etmt_cost);
         exit(1);
       }
       else {
