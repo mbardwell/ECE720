@@ -11,9 +11,9 @@
 #define MAX_INPUT_LENGTH 10 // Max number of bytes (incl. null value)
 char name[MAX_INPUT_LENGTH];
 char usrin[MAX_INPUT_LENGTH];
-float fruit_cost; // float is a C keyword. float_value is an identifier
-float groc_other_cost;
-float etmt_cost;
+int fruit_cost; // int is a C keyword. int_value is an identifier
+int groc_other_cost;
+int etmt_cost;
 
 int groc_flag = 0;
 int fruit_flag = 0;
@@ -48,14 +48,14 @@ int main(void)
         gets(usrin);
         if (!strcmp(usrin, "FRUITS/VEGETABLES")) {
           printf("Enter amount spent on FRUITS/VEGETABLES this week: ");
-          scanf("%f", &fruit_cost);
+          scanf("%d", &fruit_cost);
           if (!value_check(fruit_cost)) {
           fruit_flag = 1;
           }
         }
         else if (!strcmp(usrin, "OTHERS")) {
           printf("Enter amount spent on other groceries this week: ");
-          scanf("%f", &groc_other_cost);
+          scanf("%d", &groc_other_cost);
           if (!value_check(groc_other_cost)) {
           groc_other_flag = 1;
           }
@@ -82,7 +82,7 @@ int main(void)
       gets(usrin);
       if (!strcmp(usrin, "ENTERTAINMENT COST")) {
         printf("Enter amount spent on entertainment cost this week: ");
-        scanf("%f", &etmt_cost);
+        scanf("%d", &etmt_cost);
         if (!value_check(etmt_cost)) {
         etmt_cost_flag = 1;
         }
@@ -103,6 +103,7 @@ int main(void)
     }
     else if (!strcmp(usrin,"EXIT")) {
       if (groc_flag & etmt_flag) {
+        printf("\n\nFRUIT/VEGETABLES cost %d\nOTHERS cost %d\nENTERTAINMENT cost %d\n", fruit_cost, groc_other_cost, etmt_cost);
         exit(1);
       }
       else {
@@ -126,5 +127,3 @@ int value_check(float value) {
   }
 return 0;
 }
-
-// if groceries -> fruits/vegetables, others back to main menu
