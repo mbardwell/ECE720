@@ -14,7 +14,6 @@ char usrin[MAX_INPUT_LENGTH];
 int fruit_cost; // int is a C keyword. int_value is an identifier
 int groc_other_cost;
 int etmt_cost;
-
 int groc_flag = 0;
 int fruit_flag = 0;
 int groc_other_flag = 0;
@@ -25,20 +24,23 @@ int value_check(float value);
 
 int main(void)
 {
-  printf("Please enter a name under %d characters: ", MAX_INPUT_LENGTH); // Request user's name
-  scanf("%s", name); // Read and store user's name
-  if (strlen(name) > MAX_INPUT_LENGTH) { // Throw error if username is too big
+  // Name handling section
+  printf("Please enter a name under %d characters: ", MAX_INPUT_LENGTH);
+  scanf("%s", name);
+  if (strlen(name) > MAX_INPUT_LENGTH) {
     printf("Error: You name had %d characters. You should have up to %d. Please retry", strlen(name), MAX_INPUT_LENGTH);
     exit(1);
   }
-  name[0] = toupper(name[0]); // Set first letter to uppercase
+  name[0] = toupper(name[0]);
 
+  // Initial selection of groceries or entertainment. Rejects exit call.
   printf("Hey %s! Choose GROCERIES, ENTERTAINMENT or EXIT if done: ", name);
   scanf("%s", usrin);
   while ((strcmp(usrin,"GROCERIES")) & (strcmp(usrin,"ENTERTAINMENT"))) {
     printf("Try again %s. Please enter GROCERIES, ENTERTAINMENT or EXIT if done: ", name);
     scanf("%s", usrin);
   }
+  // Handles grocery/entertainment inputs
   while (1) {
     if (!strcmp(usrin, "GROCERIES")) {
       groc_flag = 1;
@@ -74,7 +76,7 @@ int main(void)
       }
       printf("%s, thanks for adding your weekly grocery costs. Back to main menu\n", name);
     }
-    else if (!strcmp(usrin,"ENTERTAINMENT")) { // Compare inputs in integer domain
+    else if (!strcmp(usrin,"ENTERTAINMENT")) {
       etmt_flag = 1;
       printf("%s, ENTERTAINMENT selected\n", name);
       while (1) {
@@ -119,6 +121,7 @@ int main(void)
   }
 }
 
+// Checks inputs for allowable range
 int value_check(float value) {
   // Assuming the input is not a letter
   if (value < 0) {
