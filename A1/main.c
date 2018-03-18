@@ -11,16 +11,9 @@
 #define MAX_INPUT_LENGTH 40 // Max number of bytes (incl. null value)
 char name[MAX_INPUT_LENGTH];
 char usrin[MAX_INPUT_LENGTH];
-int fruit_cost; // int is a C keyword. int_value is an identifier
-int groc_other_cost;
-int etmt_cost;
-int groc_flag = 0;
-int fruit_flag = 0;
-int groc_other_flag = 0;
-int etmt_flag = 0;
-int etmt_cost_flag = 0;
-
-int value_check(float value);
+int fruit_cost = -1; // int is a C keyword. int_value is an identifier
+int other_cost = -1;
+int etmt_cost = -1;
 
 int main(void)
 {
@@ -43,69 +36,58 @@ int main(void)
   // Handles grocery/entertainment inputs
   while (1) {
     if (!strcmp(usrin, "GROCERIES")) {
-      groc_flag = 1;
       printf("GROCERIES selected %s\n", name);
       while(1) {
         printf("%s, please select FRUITS/VEGETABLES, OTHERS or back to main menu for item entry:", name);
         fflush(stdin); gets(usrin);
         if (!strcmp(usrin, "FRUITS/VEGETABLES")) {
-          printf("%s, enter amount spent on FRUITS/VEGETABLES this week: ", name);
-          scanf("%d", &fruit_cost);
-          if (!value_check(fruit_cost)) {
-          fruit_flag = 1;
+          while(fruit_cost < 0) {
+            printf("%s, enter amount spent on FRUITS/VEGETABLES this week: ", name);
+            scanf("%d", &fruit_cost);
           }
         }
         else if (!strcmp(usrin, "OTHERS")) {
-          printf("%s, enter amount spent on other groceries this week: ", name);
-          scanf("%d", &groc_other_cost);
-          if (!value_check(groc_other_cost)) {
-          groc_other_flag = 1;
+          while(other_cost < 0) {
+            printf("%s, enter amount spent on other groceries this week: ", name);
+            scanf("%d", &other_cost);
           }
         }
         else if (!strcmp(usrin, "back to main menu")) {
-          if ((fruit_flag) & (groc_other_flag)) {
+          if (!(fruit_cost < 0) & !(other_cost < 0)) {
             break;
           }
           else {
-            printf("%s, you have not entered at least one value for each section\n", name);
+            printf("%s, not all subcategories filled out\n", name);
           }
-        }
-        else {
-          printf("%s, not all subcategories filled out\n", name);
         }
       }
       printf("%s, thanks for adding your weekly grocery costs. Back to main menu\n", name);
     }
     else if (!strcmp(usrin,"ENTERTAINMENT")) {
-      etmt_flag = 1;
       printf("%s, ENTERTAINMENT selected\n", name);
       while (1) {
         printf("%s, please select ENTERTAINMENT COST or back to main menu for item entry:", name);
         fflush(stdin); gets(usrin);
         if (!strcmp(usrin, "ENTERTAINMENT COST")) {
-          printf("%s, enter amount spent on entertainment cost this week: ", name);
-          scanf("%d", &etmt_cost);
-          if (!value_check(etmt_cost)) {
-          etmt_cost_flag = 1;
+          while(etmt_cost < 0) {
+            printf("%s, enter amount spent on entertainment cost this week: ", name);
+            scanf("%d", &etmt_cost);
           }
         }
         else if (!strcmp(usrin, "back to main menu")) {
-          if (etmt_cost_flag) {
+          if (!(etmt_cost < 0)) {
             break;
           }
           else {
-            printf("%s, you have not entered at least one value for ENTERTAINMENT\n", name);
+            printf("%s, not all subcategories filled out\n", name);
           }
-        }
-        else {
-          printf("%s, not all subcategories filled out\n", name);
         }
       }
     printf("%s, thanks for adding your weekly entertainment costs. Back to main menu\n", name);
     }
     else if (!strcmp(usrin,"EXIT")) {
-      if (groc_flag & etmt_flag) {
-        printf("\n\n%s\nFRUIT/VEGETABLES cost: %d\nOTHERS cost: %d\nENTERTAINMENT cost: %d\n", name, fruit_cost, groc_other_cost, etmt_cost);
+      if (!(fruit_cost < 0) & !(other_cost < 0) & !(etmt_cost < 0)) {
+        printf("\n\n%s\nFRUIT/VEGETABLES cost: %d\nOTHERS cost: %d\nENTERTAINMENT cost: %d\n", name, fruit_cost, other_cost, etmt_cost);
         exit(1);
       }
       else {
@@ -119,14 +101,4 @@ int main(void)
       scanf("%s", usrin);
     }
   }
-}
-
-// Checks inputs for allowable range
-int value_check(float value) {
-  // Assuming the input is not a letter
-  if (value < 0) {
-    printf("Please input a non-negative number\n");
-    return 1;
-  }
-return 0;
 }
