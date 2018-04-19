@@ -1,64 +1,70 @@
 #include "perceptron.h"
 
-/* Reads */
-int plswork() {
-  return 1;
+Perceptron::Perceptron(double * input) {
+  no_of_data_points = input[0];
+  inputCheck(input);
+  writing(input);
+  generate_weights();
+  calculate();
+  activation();
 }
 
-double * writing(double * userInputs, double * in_buff) {
-  int no_of_data_points = userInputs[0];
-  cout << "no_of_data_points: " << userInputs[0] << endl;
-  cout << "Reading data into a local buffer" << endl;
-  int buffersize = (no_of_data_points+2)*sizeof(double);
-  cout << "buffersize" << buffersize << endl;
-  // in_buff = (double *) my_malloc(buffersize);
-  for (int i = 0; i < no_of_data_points; i++) {
-    in_buff[i] = userInputs[i+1];
-    cout << userInputs[i] << endl;
+void Perceptron::writing(double * input) {
+  cout << "Writing input data to buffer" << endl;
+  input_buffer = (double *)my_malloc(input[0]*sizeof(double));
+  for (int i = 0; i < input[0]; i++) {
+    input_buffer[i] = input[i+1];
+    cout << "input_buffer: " << input_buffer[i] << endl;
   }
-  return in_buff;
 }
 
-// Used to randomly generate weights
-void generate_data(double input_buffer[]) {
+void Perceptron::generate_weights() {
   cout << "Generating weight data" << endl;
-  int no_of_data_points = MAX_DATA_SIZE;
-  // input_buffer = (double *) my_malloc((no_of_data_points+2)*sizeof(double));
-
+  weight_buffer = (double *)my_malloc(no_of_data_points*sizeof(double));
   /* Random Method 1 */
   // srand(unsigned(time(NULL))); // Initialize RNG
   // weights = (double)(rand()-(RAND_MAX/2))/RAND_MAX; // Init weight randomly
 
   /* Random Method 2 */
-  random_device seed;
-  mt19937_64 gen(seed());
-  uniform_real_distribution<double> dist(0, 5000);
+  default_random_engine eng{static_cast<long unsigned int>(time(0))};
+  uniform_real_distribution<double> urd(-1, 1);
 
   for (int i = 0; i < no_of_data_points; i++) {
-    input_buffer[i] = (dist(gen)-2500)/5000;
+    weight_buffer[i] = urd(eng);
+    cout << "weight buffer:" << weight_buffer[i] << endl;
   }
 }
-void inputCheck(double * input_buffer) {
-  for (int i = 0; i < MAX_DATA_SIZE; i++) {
-    if (-1 > input_buffer[i] || 1 < input_buffer[i]) {
-      cout << INVALID_INPUT << endl;
+
+double Perceptron::calculate() {
+  cout << "Calculating sum" << endl;
+  for(int i = 0; i < no_of_data_points; i++) {
+    sum += input_buffer[i]*weight_buffer[i];
+  }
+  cout << "sum: " << sum << endl;
+}
+
+void Perceptron::inputCheck(double * input) {
+  for (int i = 1; i <= no_of_data_points; i++) {
+    if ((input[i] < -1) | (input[i] > 1)) {
+      cout << "Input " << i << " exceeds (-1,1) range" << endl;
       exit(-1);
     }
   }
 }
-// void printSummary(double noIterations) {
-//   cout << "Number of Iterations: " << noIterations << endl;
-//   cout << "Weights: " << weights << endl;
-//   cout << "Inputs: " << inputs << endl;
-//   cout << "Outputs: " << outputs << endl;
-// }
-// double iteration() {
-//   sum = (weights * inputs) + bias;
-//   noIterations += 1;
-//   return sum;
-// }
-// double activation(double sum) {
-//   if (sum > 0) outputs = 1;
-//   else outputs = -1;
-//   return outputs;
-// }
+
+void Perceptron::activation() {
+  cout << "Activating neuron" << endl;
+  if (HLU) {
+    if (sum <= 0) fout = 0;
+    else if (sum > 0) fout = 1;
+  }
+  if (HLB) {
+    if (sum <= 0) fout = -1;
+    else if (sum > 0) fout = 1;
+  }
+  cout << "Activation function output: " << fout << endl;
+}
+
+void train(double * input, double target) {
+
+}

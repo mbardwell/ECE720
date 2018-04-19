@@ -1,7 +1,7 @@
 #include "main.h"
+#include "perceptron.cpp"
 
-int main(void) {
-  double input[] = {2, -0.5, 1};
-  Perceptron test;
-  test.plswork();
+int main() {
+  double j[] = {5, -0.3, 0.6, 0.2, 0.3, 0.6};
+  Perceptron test(j);
 }
