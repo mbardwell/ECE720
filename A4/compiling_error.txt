@@ -1,0 +1,5 @@
+C:\Users\Michael\AppData\Local\Temp\ccG2jZuU.o:lab04.c:(.text+0x3c): undefined reference to `generate_data'
+C:\Users\Michael\AppData\Local\Temp\ccG2jZuU.o:lab04.c:(.text+0x41): undefined reference to `reading'
+C:\Users\Michael\AppData\Local\Temp\ccG2jZuU.o:lab04.c:(.text+0x5d): undefined reference to `writing'
+C:\Users\Michael\AppData\Local\Temp\ccG2jZuU.o:lab04.c:(.text+0x6d): undefined reference to `display_buffer'
+collect2.exe: error: ld returned 1 exit status

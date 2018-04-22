@@ -65,6 +65,6 @@ void Perceptron::activation() {
   cout << "Activation function output: " << fout << endl;
 }
 
-void train(double * input, double target) {
+void Perceptron::train(double * input, double target) {
 
 }
