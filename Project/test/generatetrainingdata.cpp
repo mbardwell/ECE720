@@ -4,7 +4,7 @@
 #include <fstream>
 using namespace std;
 
-#define TRAININGSIZE 3
+#define TRAININGSIZE 5
 #define INTERLEAVED 1
 #define GROUPED 0
 
