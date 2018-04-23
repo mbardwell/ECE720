@@ -2,9 +2,9 @@
 #define MAIN_H
 
 #include "perceptron.h"
+#include "auxiliary.cpp"
+#include "perceptron.cpp"
 #include <iostream>
-#include <string>
-#include <fstream>
 using namespace std;
 
 #endif

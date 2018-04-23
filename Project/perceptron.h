@@ -6,6 +6,7 @@
 #include <random>
 #include "memory1.h"
 #include "memory1.c"
+#include "auxiliary.h"
 using namespace std;
 
 #define HLU 0
@@ -21,9 +22,9 @@ private:
   double sum, fout;
 
 public:
-  Perceptron(double * input);
-  void inputCheck(double * input);
-  void writing(double * input);
+  Perceptron(double ** input);
+  void inputCheck(double ** input);
+  void writing(double ** input);
   void generate_weights();
   double calculate();
   void activation();
