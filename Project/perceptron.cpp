@@ -12,6 +12,8 @@ void Perceptron::inputCheck(double ** input) {
   cout << "Checking inputs" << endl;
   for (int i = 0; i < NOINPUTS; i++) {
     for (int j = 0; j < TRAININGSIZE; j++) {
+      // cout << "line: " << input[i][j] << endl; // DEBUGGING
+      // cout << "Input [i][j] [" << i << "][" << j << "]" << endl;
       if ((input[i][j] < -1) | (input[i][j] > 1)) {
         cout << "Input [i][j] [" << i << "][" << j << "] exceeds (-1,1) range" << endl;
         exit(-1);
@@ -32,11 +34,8 @@ void Perceptron::inputCheck(double ** input) {
 void Perceptron::generate_weights() {
   cout << "Generating weight data" << endl;
   weight_buffer = (double *)my_malloc(TRAININGSIZE*sizeof(double));
-  /* Random Method 1 */
-  // srand(unsigned(time(NULL))); // Initialize RNG
-  // weights = (double)(rand()-(RAND_MAX/2))/RAND_MAX; // Init weight randomly
 
-  /* Random Method 2 */
+  /* Random Method */
   default_random_engine eng{static_cast<long unsigned int>(time(0))};
   uniform_real_distribution<double> urd(-1, 1);
 
