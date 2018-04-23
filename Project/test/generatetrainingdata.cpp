@@ -5,6 +5,8 @@
 using namespace std;
 
 #define TRAININGSIZE 10
+#define INTERLEAVED 1
+#define GROUPED 0
 
 void writetofile(double * data) {
   ofstream myfile;
@@ -30,13 +32,7 @@ int main() {
     }
   }
   else if (GROUPED) {
-    for (int i = 0; i < TRAININGSIZE*3; i = i + 3) {
-      train[i] = urd(eng); // x
-      train[i+1] = urd(eng); // y
-      if (train[i+1] - train[i] > 0) train[i+2] = 1;
-      else train[i+2] = -1;
-      cout << "x: " << train[i] << " y: " << train[i+1] << " sol: " << train[i+2] << endl;
-    }
+    // TO DO
   }
   writetofile(train);
 }

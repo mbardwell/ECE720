@@ -16,12 +16,14 @@ void readfile() {
   if (myfile.is_open())
   {
       /* Inputs separated by columns (ie input 1 in data[0], 2 in data[1]) */
-      for (int i = 0; i < NOINPUTS + 1; i++) {
-        for (int j = 0; i < TRAININGSIZE; i++) {
+      for (int j = 0; j < TRAININGSIZE; j++) {
+        for (int i = 0; i < (NOINPUTS + 1); i++) { // rows
           getline(myfile, line);
           data[i][j] = stod(line);
-          cout << "data: " << data[i][j] << endl;
         }
+      }
+      for (int i = 0; i < TRAININGSIZE; i++) {
+        cout << "data: " << data[0][i] << endl;
       }
     myfile.close();
   }
