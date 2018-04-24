@@ -9,7 +9,7 @@ double ** readfile() {
   }
 
   string line;
-  ifstream myfile ("test/trainingdata.txt");
+  ifstream myfile ("C:/Users/Michael/Documents/ece720/Project/test/trainingdata.txt");
   if (myfile.is_open())
   {
       /* Inputs separated by columns (ie input 1 in data[0], 2 in data[1]) */
