@@ -16,17 +16,15 @@ using namespace std;
 
 class Perceptron {
 private:
-  double * input_buffer;
   double * weight_buffer;
-  int no_of_data_points;
-  double sum, fout;
+  int iteration = 0;
+  double sum, guess;
 
 public:
   Perceptron(double ** input);
   void inputCheck(double ** input);
-  void writing(double ** input);
   void generate_weights();
-  double calculate();
+  void calculate(double ** input);
   void activation();
   void train(double * input, double target);
 };

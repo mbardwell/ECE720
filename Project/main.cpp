@@ -3,5 +3,5 @@
 int main() {
   double ** data;
   data = readfile();
-  // Perceptron test(data);
+  Perceptron test(data);
 }
