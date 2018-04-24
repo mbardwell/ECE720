@@ -5,6 +5,7 @@ Perceptron::Perceptron(double ** input) {
   generate_weights();
   calculate(input);
   activation();
+  train(input);
 }
 
 void Perceptron::inputCheck(double ** input) {
@@ -30,16 +31,15 @@ void Perceptron::generate_weights() {
 
   for (int i = 0; i < NOINPUTS; i++) { // rows
     weight_buffer[i] = urd(eng);
-    // cout << "weight: " << weight_buffer[i] << endl;
+    cout << "weight: " << weight_buffer[i] << endl;
   }
 }
 
 void Perceptron::calculate(double ** input) {
   cout << "Calculating sum" << endl;
-  int j = iteration;
   sum = 0; // restart sum between
   for (int i = 0; i < NOINPUTS; i++) { // rows
-    sum += input[i][j]*weight_buffer[i];
+    sum += input[i][iteration]*weight_buffer[i];
     // cout << "input: " << input[i][j] << endl;
     // cout << "sum: " << sum << endl;
   }
@@ -55,9 +55,15 @@ void Perceptron::activation() {
     if (sum <= 0) guess = -1;
     else if (sum > 0) guess = 1;
   }
-  cout << "Activation function output: " << guess << endl;
+  cout << "Guess " << guess << endl;
 }
 
-void Perceptron::train(double * input, double target) {
-
+void Perceptron::train(double ** input) {
+  double error = input[NOINPUTS][iteration] - guess;
+  for (int i = 0; i < NOINPUTS; i++) {
+    weight_buffer[i] += error*input[i][iteration]*LEARNINGRATE;
+    cout << "error: " << error << endl;
+    cout << "input: " << input[i][iteration] << endl;
+    cout << "new weights [" << i << "]:  " << weight_buffer[i] << endl;
+  }
 }

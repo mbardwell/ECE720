@@ -6,5 +6,6 @@ using namespace std;
 
 #define TRAININGSIZE 5
 #define NOINPUTS 2
+#define LEARNINGRATE 0.1
 
 double ** readfile();

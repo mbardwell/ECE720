@@ -26,7 +26,7 @@ public:
   void generate_weights();
   void calculate(double ** input);
   void activation();
-  void train(double * input, double target);
+  void train(double ** input);
 };
 
 #endif
