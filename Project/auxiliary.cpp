@@ -1,10 +1,11 @@
 #include "auxiliary.h"
 
 double ** readfile() {
+  cout << "Reading file data" << endl;
   double ** data;
   data = (double **) my_malloc(TRAININGSIZE*sizeof(double *)); // rows
   for (int i = 0; i < TRAININGSIZE; i++) {
-    data[i] = (double *) my_malloc((NOINPUTS + 1) * sizeof(int)); // columns
+    data[i] = (double *) my_malloc((NOINPUTS + 1) * sizeof(double)); // columns
   }
 
   string line;
