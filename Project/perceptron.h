@@ -1,3 +1,7 @@
+/**********************************************************/
+/*                       PERCEPTRON.H                     */
+/**********************************************************/
+
 #ifndef PERCEPTRON_H
 #define PERCEPTRON_H
 
@@ -7,6 +11,7 @@
 #include "memory1.h"
 #include "memory1.c"
 #include "auxiliary.h"
+#include "cmath"
 using namespace std;
 
 #define HLU 0
@@ -17,18 +22,19 @@ using namespace std;
 class Perceptron {
 private:
   double * weight_buffer;
+  double * rmse;
   int iteration = 0, EOL = 0;
-  double sum, guess, error;
+  double sum, guess, error, mse = 0;
 
 public:
   Perceptron(double ** input);
   void inputCheck(double ** input);
-  void generate_weights();
+  void generateWeights();
   void calculate(double ** input);
   void activation();
   void train(double ** input);
-  void rmse();
-  void freebuffer(double ** input);
+  void statistics();
+  void freeBuffer(double ** input);
 };
 
 #endif
