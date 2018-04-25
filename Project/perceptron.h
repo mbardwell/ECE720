@@ -17,8 +17,8 @@ using namespace std;
 class Perceptron {
 private:
   double * weight_buffer;
-  int iteration = 0;
-  double sum, guess;
+  int iteration = 0, EOL = 0;
+  double sum, guess, error;
 
 public:
   Perceptron(double ** input);
@@ -27,6 +27,8 @@ public:
   void calculate(double ** input);
   void activation();
   void train(double ** input);
+  void rmse();
+  void freebuffer(double ** input);
 };
 
 #endif

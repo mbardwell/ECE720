@@ -3,20 +3,24 @@
 double ** readfile() {
   cout << "Reading file data" << endl;
   double ** data;
-  data = (double **) my_malloc(TRAININGSIZE*sizeof(double *)); // rows
-  for (int i = 0; i < TRAININGSIZE; i++) {
-    data[i] = (double *) my_malloc((NOINPUTS + 1) * sizeof(double)); // columns
+  data = (double **) my_malloc((NOINPUTS + NOOUTPUTS) * sizeof(double *)); // rows
+  for (int i = 0; i < (NOINPUTS + NOOUTPUTS); i++) {
+    data[i] = (double *) my_malloc(TRAININGSIZE*sizeof(double)); // columns
   }
 
   string line;
   ifstream myfile ("C:/Users/Michael/Documents/ece720/Project/test/trainingdata.txt");
   if (myfile.is_open())
   {
+    int k = 0; // DEBUGGING
       /* Inputs separated by columns (ie input 1 in data[0], 2 in data[1]) */
       for (int j = 0; j < TRAININGSIZE; j++) {
         for (int i = 0; i < (NOINPUTS + 1); i++) { // rows
           getline(myfile, line);
+          stringstream ss(line);
+          cout << "k: " << line << endl; k++;
           data[i][j] = stod(line);
+          // ss >> data[i][j];
           // cout << "line: " << data[i][j] << endl;
           // cout << "Input [i][j] [" << i << "][" << j << "]" << endl;
         }

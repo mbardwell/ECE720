@@ -15,8 +15,10 @@ void *my_malloc(int size)
     long amount;
 
     amount = (long)((long)size + sizeof(long));
-
     ptr = (long *)malloc(amount);
+    if (ptr == NULL) {
+      printf("Err: Memory failed to allocate"); exit(-1);
+    }
     *ptr = amount;
     ptr++;
 
@@ -29,6 +31,9 @@ void *my_malloc(int size)
 
 void my_free(void *ptr) // void *ptr means the pointer can be of any type
 {
+    if (ptr == NULL) {
+      printf("Err: Memory failed to allocate"); exit(-1);
+    }
     long amount;
     long *size_ptr;
 
