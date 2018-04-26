@@ -9,20 +9,22 @@ Perceptron::Perceptron(double ** input) {
   inputCheck(input);
   generateBuffers();
   generateWeights();
-  cout << "training" << endl;
-  for(int i = 0; i < TRAININGSIZE; i++) {
-    calculate(input);
-    activation();
-    train(input);
-    statistics();
-    iteration++;
-  }
 
   while (1) {
-    cout << "Enter 'train' to train again or 1 to free buffers and end program: ";
+    cout << "Enter 'train' to train or 1 to free buffers and end program: ";
     cin >> EOL;
     if (EOL == "1") freeBuffer(input);
-    else if (EOL == "train") train(input);
+    else if (EOL == "train") {
+      iteration = 1;
+      cout << "training" << endl;
+      for(int i = 0; i < TRAININGSIZE; i++) {
+        calculate(input);
+        activation();
+        train(input);
+        statistics();
+        iteration++;
+      }
+    }
   }
 }
 
