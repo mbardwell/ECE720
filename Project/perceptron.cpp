@@ -8,6 +8,7 @@
 Perceptron::Perceptron(double ** input) {
   cout << "Generating rmse buffer" << endl;
   rmse = (double *) my_malloc(TRAININGSIZE*sizeof(double));
+  se = (double *) my_malloc(TRAININGSIZE*sizeof(double));
   inputCheck(input);
   generateWeights();
   cout << "training" << endl;
@@ -52,32 +53,32 @@ void Perceptron::generateWeights() {
 }
 
 void Perceptron::calculate(double ** input) {
-  sum = 0; // restart sum between
+  tot = 0; // restart tot between
   for (int i = 0; i < NOINPUTS; i++) { // rows
-    sum += input[i][iteration]*weight_buffer[i];
+    tot += input[i][iteration]*weight_buffer[i];
     if (VERBOSE) {
-      cout << "Calculating sum for iteration: " << iteration << endl;
+      cout << "Calculating tot for iteration: " << iteration << endl;
       cout << "input: " << input[i][iteration];
       cout << " weight: " << weight_buffer[i];
-      cout << " sum: " << sum << endl;
+      cout << " tot: " << tot << endl;
     }
   }
 }
 
 void Perceptron::activation() {
   if (HLU) {
-    if (sum <= 0) guess = 0;
-    else if (sum > 0) guess = 1;
+    if (tot <= 0) guess = 0;
+    else if (tot > 0) guess = 1;
   }
   if (HLB) {
-    if (sum <= 0) guess = -1;
-    else if (sum > 0) guess = 1;
+    if (tot <= 0) guess = -1;
+    else if (tot > 0) guess = 1;
   }
   if (SIGU) {
-    guess =  1/(1 + exp(-alpha*sum));
+    guess =  1/(1 + exp(-alpha*tot));
   }
   if (SIGB) {
-    guess =  (1-exp(-alpha*sum))/(1 + exp(-alpha*sum));
+    guess =  (1-exp(-alpha*tot))/(1 + exp(-alpha*tot));
   }
   if (VERBOSE) {
     cout << "Activating neuron. " << endl;
@@ -87,7 +88,7 @@ void Perceptron::activation() {
 
 void Perceptron::train(double ** input) {
   error = input[NOINPUTS][iteration] - guess;
-  mse += pow(error,2);
+  se[iteration] += pow(error,2);
   for (int i = 0; i < NOINPUTS; i++) {
     weight_buffer[i] += error*input[i][iteration]*LEARNINGRATE;
     if (VERBOSE) {
@@ -100,7 +101,11 @@ void Perceptron::train(double ** input) {
 }
 
 void Perceptron::statistics() {
-  rmse[iteration] = sqrt(mse)/(iteration + 1);
+  rmse_temp = 0;
+  for (int i = 0; i < iteration; i++) {
+    rmse_temp += se[i];
+  }
+      rmse[iteration] = sqrt(rmse_temp)/(iteration*epoch + 1);
   if (VERBOSE) {
     cout << "iteration: " << iteration;
     cout << " Root mean squared error: " << rmse[iteration] << endl;
@@ -113,7 +118,6 @@ void Perceptron::statistics() {
       file << rmse[i] << "\n";
     }
     cout << "Last RMSE: " << rmse[TRAININGSIZE-1] << endl;
-    file.close();
   }
 }
 
@@ -126,7 +130,7 @@ void Perceptron::freeBuffer(double ** input) {
     my_free(input[i]);
   }
   my_free(input);
-  cout << "Freeing rmse" << endl;
-  my_free(rmse);
+  cout << "Freeing rmse, se" << endl;
+  my_free(rmse); my_free(se);
   exit(-1);
 }

@@ -15,17 +15,20 @@
 using namespace std;
 
 #define HLU 0
-#define HLB 1
+#define HLB 0
 #define SIGU 0
-#define SIGB 0
+#define SIGB 1
 #define alpha 0.1
 
 class Perceptron {
 private:
   double * weight_buffer;
+  double * se;
   double * rmse;
+  // double *
   int iteration = 0, EOL = 0;
-  double sum, guess, error, mse = 0;
+  double tot, guess, error;
+  double rmse_temp = 0, epoch = 1; // se: squared error
 
 public:
   Perceptron(double ** input);
