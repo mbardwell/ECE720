@@ -16,8 +16,9 @@ using namespace std;
 
 #define HLU 0
 #define HLB 1
-#define SIGA 0
+#define SIGU 0
 #define SIGB 0
+#define alpha 0.1
 
 class Perceptron {
 private:

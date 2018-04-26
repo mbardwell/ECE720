@@ -73,6 +73,12 @@ void Perceptron::activation() {
     if (sum <= 0) guess = -1;
     else if (sum > 0) guess = 1;
   }
+  if (SIGU) {
+    guess =  1/(1 + exp(-alpha*sum));
+  }
+  if (SIGB) {
+    guess =  (1-exp(-alpha*sum))/(1 + exp(-alpha*sum));
+  }
   if (VERBOSE) {
     cout << "Activating neuron. " << endl;
     cout << "Guess " << guess << endl;
