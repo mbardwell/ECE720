@@ -124,12 +124,12 @@ void Perceptron::train(double ** input) {
     activation();
     error = input[NOINPUTS][iteration-1] - guess;
     se[epoch-1][iteration-1] += pow(error,2);
-    for (int i = 0; i < NOINPUTS; i++) {
-      weight_buffer[i] += error*input[i][iteration-1]*LEARNINGRATE;
+    for (int j = 0; j < NOINPUTS; j++) {
+      weight_buffer[j] += error*input[j][iteration-1]*LEARNINGRATE;
       if (VERBOSE) {
         cout << "error: " << error;
-        cout << " input: " << input[i][iteration-1] << endl;
-        cout << "new weights [" << i << "]:  " << weight_buffer[i] << endl;
+        cout << " input: " << input[j][iteration-1] << endl;
+        cout << "new weights [" << j << "]:  " << weight_buffer[j] << endl;
       }
     }
     statistics();
@@ -140,7 +140,7 @@ void Perceptron::train(double ** input) {
 
 void Perceptron::statistics() {
   rmse_temp = 0;
-  for (int i = 0; i < (epoch - 1); i++) {
+  for (int i = 0; i < epoch; i++) {
     for (int j = 0; j < iteration; j++) {
       rmse_temp += se[i][j];
     }
