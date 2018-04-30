@@ -145,7 +145,7 @@ void Perceptron::statistics() {
       rmse_temp += se[i][j];
     }
   }
-      rmse[epoch-1][iteration-1] = sqrt(rmse_temp)/(iteration + ((epoch-1)*TRAININGSIZE));
+  rmse[epoch-1][iteration-1] = sqrt(rmse_temp)/(iteration + ((epoch-1)*TRAININGSIZE));
   if (VERBOSE) {
     cout << "iteration: " << iteration << " epoch: " << epoch;
     cout << " Root mean squared error: " << rmse[epoch-1][iteration-1] << endl;
@@ -178,6 +178,7 @@ void Perceptron::freeBuffer(double ** input) {
 }
 
 void Perceptron::toFile() {
+  epoch--;
   ofstream file;
   file.open ("C:/Users/Michael/Documents/ece720/Project/test/results.txt");
   for (int i = 0; i < epoch; i++) {
