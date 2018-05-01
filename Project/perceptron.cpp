@@ -118,12 +118,10 @@ void Perceptron::activation() {
 }
 
 void Perceptron::train(double ** input) {
-  iteration = 1;
-  for(int i = 0; i < TRAININGSIZE; i++) {
+  for(iteration = 1; iteration <= TRAININGSIZE; iteration++) {
     calculate(input);
     activation();
     error = input[NOINPUTS][iteration-1] - guess;
-    se[epoch-1][iteration-1] += pow(error,2);
     for (int j = 0; j < NOINPUTS; j++) {
       weight_buffer[j] += error*input[j][iteration-1]*LEARNINGRATE;
       if (VERBOSE) {
@@ -132,25 +130,24 @@ void Perceptron::train(double ** input) {
         cout << "new weights [" << j << "]:  " << weight_buffer[j] << endl;
       }
     }
+    se[epoch-1][iteration-1] = pow(error,2);
     statistics();
-    iteration++;
   }
   epoch++;
 }
 
 void Perceptron::statistics() {
   rmse_temp = 0;
-  for (int i = 0; i < epoch; i++) {
-    for (int j = 0; j < iteration; j++) {
-      rmse_temp += se[i][j];
-    }
+  for (int j = 0; j < iteration; j++) {
+    rmse_temp += se[epoch-1][j];
   }
-  rmse[epoch-1][iteration-1] = sqrt(rmse_temp)/(iteration + ((epoch-1)*TRAININGSIZE));
+  rmse[epoch-1][iteration-1] = sqrt(rmse_temp + numhold)/(iteration + ((epoch-1)*TRAININGSIZE));
   if (VERBOSE) {
     cout << "iteration: " << iteration << " epoch: " << epoch;
     cout << " Root mean squared error: " << rmse[epoch-1][iteration-1] << endl;
   }
   if (iteration == TRAININGSIZE) {
+    numhold = rmse_temp + numhold;
     cout << "Last RMSE: " << rmse[epoch-1][TRAININGSIZE-1] << endl;
   }
 }
