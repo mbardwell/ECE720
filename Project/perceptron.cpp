@@ -16,7 +16,7 @@ Perceptron::Perceptron(double ** input) {
       cout << "Reached max number of allowable epochs" << endl;
       freeBuffer(input);
     }
-    cout << "Enter 'train', 'verify' or 1 to free buffers and end program: ";
+    cout << "Enter 'train', 'verify', 'classify' or 1 to free buffers and end program: ";
     cin >> EOL;
     if (EOL == "1") freeBuffer(input);
     else if (EOL == "train") {
@@ -24,8 +24,12 @@ Perceptron::Perceptron(double ** input) {
       train(input);
     }
     else if (EOL == "verify") {
-      cout << "verify" << endl;
+      cout << "verifying" << endl;
       verify(input);
+    }
+    else if (EOL == "classify") {
+      cout << "classifying" << endl;
+      classify(input);
     }
   }
 }
@@ -200,4 +204,23 @@ void Perceptron::verify(double ** input) {
     cout << "correct: " << correct_guesses << " wrong: " << wrong_guesses << endl;
   }
   correct_guesses = 0; wrong_guesses = 0;
+}
+
+void Perceptron::classify(double ** input) {
+  cout << "Generating classification buffer" << endl;
+  classification = (double *) my_malloc(TRAININGSIZE*sizeof(double));
+  for(iteration = 1; iteration <= TRAININGSIZE; iteration++) {
+    calculate(input);
+    activation();
+    classification[iteration - 1] = guess;
+  }
+  if (iteration == TRAININGSIZE + 1) {
+    ofstream file;
+    file.open ("C:/Users/Michael/Documents/ece720/Project/test/classify.txt");
+    for (int i = 0; i < TRAININGSIZE; i++) {
+      file << classification[i] << "\n";
+    }
+    file.close();
+  }
+  my_free(classification);
 }

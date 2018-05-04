@@ -31,6 +31,7 @@ using namespace std;
 class Perceptron {
 private:
   double * weight_buffer;
+  double * classification;
   double ** se;
   double ** rmse;
   int iteration = 1, epoch = 1;
@@ -52,6 +53,7 @@ public:
   void freeBuffer(double ** input);
   void toFile();
   void verify(double ** input);
+  void classify(double ** input);
 };
 
 #endif
