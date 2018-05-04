@@ -16,12 +16,16 @@ Perceptron::Perceptron(double ** input) {
       cout << "Reached max number of allowable epochs" << endl;
       freeBuffer(input);
     }
-    cout << "Enter 'train' to train or 1 to free buffers and end program: ";
+    cout << "Enter 'train', 'verify' or 1 to free buffers and end program: ";
     cin >> EOL;
     if (EOL == "1") freeBuffer(input);
     else if (EOL == "train") {
       cout << "training" << endl;
       train(input);
+    }
+    else if (EOL == "verify") {
+      cout << "verify" << endl;
+      verify(input);
     }
   }
 }
@@ -184,4 +188,16 @@ void Perceptron::toFile() {
     }
   }
   file.close();
+}
+
+void Perceptron::verify(double ** input) {
+  for(iteration = 1; iteration <= TRAININGSIZE; iteration++) {
+    calculate(input);
+    activation();
+    error = input[NOINPUTS][iteration-1] - guess;
+    if (error == 0) correct_guesses ++;
+    else wrong_guesses ++;
+    cout << "correct: " << correct_guesses << " wrong: " << wrong_guesses << endl;
+  }
+  correct_guesses = 0; wrong_guesses = 0;
 }

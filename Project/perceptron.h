@@ -24,7 +24,7 @@ using namespace std;
 #define TRAININGSIZE 100
 #define NOINPUTS 2
 #define NOOUTPUTS 1
-#define VERBOSE 1
+#define VERBOSE 0
 #define LEARNINGRATE 0.1
 #define NOEPOCHS 5
 
@@ -36,7 +36,8 @@ private:
   int iteration = 1, epoch = 1;
   string EOL;
   double tot, guess, error;
-  double rmse_temp = 0; // se: squared error
+  double rmse_temp = 0, numhold = 0; // se: squared error
+  int correct_guesses = 0, wrong_guesses = 0;
 
 public:
   Perceptron(double ** input);
@@ -50,6 +51,7 @@ public:
   void statistics();
   void freeBuffer(double ** input);
   void toFile();
+  void verify(double ** input);
 };
 
 #endif
