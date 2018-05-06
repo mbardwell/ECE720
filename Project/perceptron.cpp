@@ -12,16 +12,17 @@ Perceptron::Perceptron(double ** input) {
   generateWeights();
 
   while (1) {
-    if (epoch > NOEPOCHS) {
-      cout << "Reached max number of allowable epochs" << endl;
-      freeBuffer(input);
-    }
     cout << "Enter 'train', 'verify', 'classify' or 1 to free buffers and end program: ";
     cin >> EOL;
     if (EOL == "1") freeBuffer(input);
     else if (EOL == "train") {
-      cout << "training" << endl;
-      train(input);
+      if (epoch > NOEPOCHS) {
+        cout << "Reached max number of allowable training epochs" << endl;
+      }
+      else {
+        cout << "training" << endl;
+        train(input);
+      }
     }
     else if (EOL == "verify") {
       cout << "verifying" << endl;
@@ -92,7 +93,7 @@ void Perceptron::generateWeights() {
 }
 
 void Perceptron::calculate(double ** input) {
-  tot = 0; // restart tot between
+  tot = BIAS; // restart tot between
   for (int i = 0; i < NOINPUTS; i++) { // rows
     tot += input[i][iteration-1]*weight_buffer[i];
     if (VERBOSE) {
