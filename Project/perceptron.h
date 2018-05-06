@@ -15,6 +15,7 @@
 #include "cmath"
 using namespace std;
 
+#define LIN 0
 #define HLU 0
 #define HLB 1
 #define SIGU 0
@@ -22,7 +23,7 @@ using namespace std;
 #define alpha 0.1
 
 #define TRAININGSIZE 100
-#define NOINPUTS 2
+#define NOINPUTS 3
 #define NOOUTPUTS 1
 #define VERBOSE 0
 #define LEARNINGRATE 0.1

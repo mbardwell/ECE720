@@ -105,6 +105,9 @@ void Perceptron::calculate(double ** input) {
 }
 
 void Perceptron::activation() {
+  if (LIN) {
+    guess = tot;
+  }
   if (HLU) {
     if (tot <= 0) guess = 0;
     else if (tot > 0) guess = 1;
