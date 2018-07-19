@@ -1,9 +1,9 @@
 /**********************************************************/
-/*                       PERCEPTRON.H                     */
+/*                          ADALINE.H                     */
 /**********************************************************/
 
-#ifndef PERCEPTRON_H
-#define PERCEPTRON_H
+#ifndef ADALINE_H
+#define ADALINE_H
 
 #include <iostream>
 #include <ctime>    // For time()
@@ -27,7 +27,7 @@ using namespace std;
 #define NOEPOCHS 5
 #define BIAS 0
 
-class Perceptron {
+class Adaline {
 private:
   double * weight_buffer;
   double * classification;
@@ -40,7 +40,7 @@ private:
   int correct_guesses = 0, wrong_guesses = 0;
 
 public:
-  Perceptron(double ** input);
+  Adaline(double ** input);
   void inputCheck(double ** input);
   void generateBuffers();
   void zeroBuffers();
